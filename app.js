@@ -1172,24 +1172,28 @@ function updateCostPanel() {
     <div class="total-note">Sin comida, ocio ni transporte local.<br>Comida estimada: ~30€/día → +570€/pax</div>
   </div>`;
 
-  // Budget comparison bar
+  // Budget reference scenarios
   const budgetLow = 1170;
   const budgetMid = 1263;
   const budgetHigh = 1408;
-  if (selectedCount === cityCount) {
-    let budgetClass = 'budget-low';
-    if (totalPP > budgetMid) budgetClass = 'budget-mid';
-    if (totalPP > budgetHigh) budgetClass = 'budget-high';
-    html += `<div class="budget-meter">
-      <div class="budget-bar">
-        <div class="budget-zone low" style="width:33%"><span>Barato<br>${budgetLow}€</span></div>
-        <div class="budget-zone mid" style="width:34%"><span>Medio<br>${budgetMid}€</span></div>
-        <div class="budget-zone high" style="width:33%"><span>Caro<br>${budgetHigh}€</span></div>
-        <div class="budget-marker ${budgetClass}" style="left:${Math.min(100, ((totalPP - budgetLow) / (budgetHigh - budgetLow)) * 100)}%"></div>
-      </div>
-      <div class="budget-label ${budgetClass}">Tu selección: ${totalPP.toFixed(0)}€/pax</div>
-    </div>`;
-  }
+  html += `<div class="budget-meter">
+    <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:10px">Escenarios de referencia</h3>
+    <div class="cost-row"><span style="color:var(--green)">Todo barato</span><span class="cost-val" style="color:var(--green)">${budgetLow}€/pax</span></div>
+    <div class="cost-row"><span style="color:var(--orange)">Promedio</span><span class="cost-val" style="color:var(--orange)">${budgetMid}€/pax</span></div>
+    <div class="cost-row"><span style="color:var(--red)">Todo caro</span><span class="cost-val" style="color:var(--red)">${budgetHigh}€/pax</span></div>
+    <div class="budget-bar" style="margin-top:10px">
+      <div class="budget-zone low" style="width:33%"><span>Barato<br>${budgetLow}€</span></div>
+      <div class="budget-zone mid" style="width:34%"><span>Medio<br>${budgetMid}€</span></div>
+      <div class="budget-zone high" style="width:33%"><span>Caro<br>${budgetHigh}€</span></div>
+      ${selectedCount === cityCount ? `<div class="budget-marker" style="left:${Math.min(100, Math.max(0, ((totalPP - budgetLow) / (budgetHigh - budgetLow)) * 100))}%"></div>` : ''}
+    </div>
+    ${selectedCount === cityCount ? (() => {
+      let budgetClass = 'budget-low';
+      if (totalPP > budgetMid) budgetClass = 'budget-mid';
+      if (totalPP > budgetHigh) budgetClass = 'budget-high';
+      return `<div class="budget-label ${budgetClass}">Tu selección: ${totalPP.toFixed(0)}€/pax</div>`;
+    })() : `<div class="budget-label" style="color:var(--text-dim)">Elige todo para ver dónde caes</div>`}
+  </div>`;
 
   el.innerHTML = html;
 }
