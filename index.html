@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Europa Julio 2027 — Planificador de viaje</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="panel-left" id="panel-left">
+      <button class="panel-toggle toggle-left" onclick="togglePanel('left')" title="Ocultar panel">‹</button>
+      <div class="panel-content">
+        <h1>Julio 2027</h1>
+        <div class="route-mini">
+          <span>MAD</span><span class="arrow">→</span><span>AMS</span><span class="arrow">→</span><span>BER</span><span class="arrow">→</span><span>PRG</span><span class="arrow">→</span><span>SZG</span><span class="arrow">→</span><span>BLD</span><span class="arrow">→</span><span>SPU</span><span class="arrow">→</span><span>DBV</span><span class="arrow">→</span><span>MAD</span>
+        </div>
+        <div id="timeline"></div>
+      </div>
+    </aside>
+    <main class="panel-center" id="day-detail"></main>
+    <aside class="panel-right" id="panel-right">
+      <button class="panel-toggle toggle-right" onclick="togglePanel('right')" title="Ocultar panel">›</button>
+      <div class="panel-content" id="cost-panel"></div>
+    </aside>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
